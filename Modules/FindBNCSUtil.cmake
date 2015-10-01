@@ -1,0 +1,19 @@
+# find BNCUtil
+# BNCSUtil_FOUND - TRUE if we found library and include files
+# BNCSUtil_INCLUDE_DIRS - PATH to include files
+# BNCSUtil_LIBRARIES - PATH to library
+
+# cache
+IF( BNCSUtil_LIBRARIES AND BNCSUtil_INCLUDE_DIRS )
+	SET ( BNCSUtil_FIND_QUIETLY TRUE )
+ENDIF( BNCSUtil_LIBRARIES AND BNCSUtil_INCLUDE_DIRS )
+
+# find directory with source files and library
+FIND_PATH( BNCSUtil_INCLUDE_DIR bncsutil.h PATH_SUFFIXES bncsutil )
+FIND_LIBRARY( BNCSUtil_LIBRARY NAMES bncsutil )
+
+SET( BNCSUtil_INCLUDE_DIRS ${BNCSUtil_INCLUDE_DIR} )
+SET( BNCSUtil_LIBRARIES ${BNCSUtil_LIBRARY} )
+
+INCLUDE( FindPackageHandleStandardArgs )
+FIND_PACKAGE_HANDLE_STANDARD_ARGS( BNCSUtil DEFAULT_MSG BNCSUtil_LIBRARIES BNCSUtil_INCLUDE_DIRS  )
