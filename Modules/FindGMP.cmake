@@ -1,17 +1,20 @@
-# find GMP
-# GMP_FOUND - true if we found gmp library and include files
-# GMP_LIBRARIES - where gmp library located
-# GMP_INCLUDE_DIRS - where gmp iclude files located
+#[[.rst
+FindGMP
+---------
+GMP_FOUND - system has gmp
+GMP_INCLUDE_DIRS - gmp include directory
+GMP_LIBRARIES - gmp library
+#]]
 
-IF (GMP_INCLUDE_DIRS AND GMP_LIBRARIES )
+if (GMP_INCLUDE_DIR AND GMP_LIBRARY )
 	set(GMP_FIND_QUIETLY TRUE)
-ENDIF(GMP_INCLUDE_DIRS AND GMP_LIBRARIES)
+endif(GMP_INCLUDE_DIR AND GMP_LIBRARY)
 
-FIND_PATH(GMP_INCLUDE_DIR NAMES gmp.h )
-FIND_LIBRARY(GMP_LIBRARY NAMES gmp libgmp )
+find_path(GMP_INCLUDE_DIR NAMES gmp.h PATHS ${CMAKE_SOURCE_DIR}/depends/include)
+find_library(GMP_LIBRARY NAMES gmp libgmp PATHS ${CMAKE_SOURCE_DIR}/depends/lib )
+
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(GMP DEFAULT_MSG GMP_LIBRARY GMP_INCLUDE_DIR )
 
 SET( GMP_LIBRARIES ${GMP_LIBRARY} )
 SET( GMP_INCLUDE_DIRS ${GMP_INCLUDE_DIR} )
-
-include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(GMP DEFAULT_MSG GMP_LIBRARIES GMP_INCLUDE_DIRS )

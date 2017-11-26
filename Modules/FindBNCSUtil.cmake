@@ -1,19 +1,20 @@
-# find BNCUtil
-# BNCSUtil_FOUND - TRUE if we found library and include files
-# BNCSUtil_INCLUDE_DIRS - PATH to include files
-# BNCSUtil_LIBRARIES - PATH to library
+#[[.rst
+FindBNCSUtil
+------------
+BNCSUtil_FOUND - system has bncs
+BNCSUtil_INCLUDE_DIRS - bncs include directory
+BNCSUtil_LIBRARIES - bncs library
+#]]
 
-# cache
-IF( BNCSUtil_LIBRARIES AND BNCSUtil_INCLUDE_DIRS )
-	SET ( BNCSUtil_FIND_QUIETLY TRUE )
-ENDIF( BNCSUtil_LIBRARIES AND BNCSUtil_INCLUDE_DIRS )
+if( BNCSUtil_INCLUDE_DIR AND BNCSUtil_LIBRARY )
+	set( BNCSUtil_FIND_QUIETLY TRUE )
+endif( BNCSUtil_INCLUDE_DIR AND BNCSUtil_LIBRARY )
 
-# find directory with source files and library
-FIND_PATH( BNCSUtil_INCLUDE_DIR bncsutil.h PATH_SUFFIXES bncsutil )
-FIND_LIBRARY( BNCSUtil_LIBRARY NAMES bncsutil )
+find_path( BNCSUtil_INCLUDE_DIR NAMES bncsutil.h PATHS ${CMAKE_SOURCE_DIR}/depends/include PATH_SUFFIXES bncsutil )
+find_library( BNCSUtil_LIBRARY NAMES bncsutil PATHS ${CMAKE_SOURCE_DIR}/depends/lib )
 
-SET( BNCSUtil_INCLUDE_DIRS ${BNCSUtil_INCLUDE_DIR} )
-SET( BNCSUtil_LIBRARIES ${BNCSUtil_LIBRARY} )
+include( FindPackageHandleStandardArgs )
+FIND_PACKAGE_HANDLE_STANDARD_ARGS( BNCSUtil DEFAULT_MSG BNCSUtil_LIBRARY BNCSUtil_INCLUDE_DIR )
 
-INCLUDE( FindPackageHandleStandardArgs )
-FIND_PACKAGE_HANDLE_STANDARD_ARGS( BNCSUtil DEFAULT_MSG BNCSUtil_LIBRARIES BNCSUtil_INCLUDE_DIRS  )
+set( BNCSUtil_INCLUDE_DIRS ${BNCSUtil_INCLUDE_DIR} )
+set( BNCSUtil_LIBRARIES ${BNCSUtil_LIBRARY} )

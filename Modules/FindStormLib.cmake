@@ -1,20 +1,20 @@
-# find StormLib
-# STORMLIB_LIBRARIES - where libraries located
-# STORMLIB_INCLUDE_DIRS - where include files located
-# STORMLIB_FOUND - true if we found include files and library
+#[[.rst
+FindStormLib
+------------
+StormLib_FOUND - system has stormlib
+StormLib_INCLUDE_DIRS - stormlib include library
+StormLib_LIBRARIES - stormlib library
+#]]
 
-#cache 
-IF( STORMLIB_INCLUDE_DIRS AND STORMLIB_LIBRARIES )
-	SET( STORMLIB__FIND_QUIETLY TRUE )
-ENDIF( STORMLIB_INCLUDE_DIRS AND STORMLIB_LIBRARIES )
+if( StormLib_INCLUDE_DIR AND StormLib_LIBRARY )
+	set( StormLib_FIND_QUIETLY TRUE )
+endif( StormLib_INCLUDE_DIR AND StormLib_LIBRARY )
 
-FIND_PATH( STORMLIB_INCLUDE_DIR StormLib.h PATH_SUFFIXES stormlib StormLib )
-FIND_LIBRARY( STORMLIB_LIBRARY NAMES storm )
+find_path( StormLib_INCLUDE_DIR NAMES StormLib.h PATHS ${CMAKE_SOURCE_DIR}/depends/include PATH_SUFFIXES stormlib StormLib )
+find_library( StormLib_LIBRARY NAMES storm PATHS ${CMAKE_SOURCE_DIR}/depends/lib )
 
-SET( STORMLIB_INCLUDE_DIRS ${STORMLIB_INCLUDE_DIR} )
-SET( STORMLIB_LIBRARIES ${STORMLIB_LIBRARY} )
+include( FindPackageHandleStandardArgs )
+FIND_PACKAGE_HANDLE_STANDARD_ARGS( StormLib DEFAULT_MSG StormLib_LIBRARY StormLib_INCLUDE_DIR )
 
-INCLUDE( FindPackageHandleStandardArgs )
-FIND_PACKAGE_HANDLE_STANDARD_ARGS( StormLib DEFAULT_MSG STORMLIB_LIBRARIES STORMLIB_INCLUDE_DIRS  )
-
-
+set( StormLib_INCLUDE_DIRS ${StormLib_INCLUDE_DIR} )
+set( StormLib_LIBRARIES ${StormLib_LIBRARY} )
